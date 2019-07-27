@@ -1,0 +1,43 @@
+package com.example.projectassignment.dagger;
+
+import android.content.Context;
+
+import com.example.projectassignment.App;
+import com.example.projectassignment.addresslist.AddressRepo;
+import com.example.projectassignment.addresslist.AddressUsecase;
+import com.example.projectassignment.data.source.local.AddressDatabase;
+
+import javax.inject.Singleton;
+
+import dagger.Module;
+import dagger.Provides;
+
+@Module
+public class ApplicationModule {
+
+    private static final String TAG = ApplicationModule.class.getSimpleName();
+    private final App mApp;
+
+    public ApplicationModule(App app) {
+        mApp = app;
+    }
+
+    @Provides
+    @Singleton
+    public Context appContext() {
+        return mApp;
+    }
+
+    @Provides
+    @Singleton
+    public AddressRepo addressRepo() {
+        AddressDatabase movieDatabase = AddressDatabase.getInstance(mApp);
+        return new AddressRepo(mApp,movieDatabase);
+
+    }
+
+    @Provides
+    public AddressUsecase fetchAdressList() {
+        return new AddressUsecase();
+    }
+}

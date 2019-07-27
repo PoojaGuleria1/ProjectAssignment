@@ -9,8 +9,10 @@ import androidx.room.PrimaryKey;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+
 @Entity(tableName = "deliveryAddress")
-public class DeliveryAddress {
+public class DeliveryAddress implements Serializable {
 
     @SerializedName("id")
     @ColumnInfo(name = "id")
@@ -29,18 +31,8 @@ public class DeliveryAddress {
     @Embedded
     private Location location;
 
-    // use for ordering the items in view
-    public static DiffUtil.ItemCallback<DeliveryAddress> DIFF_CALLBACK = new DiffUtil.ItemCallback<DeliveryAddress>() {
-        @Override
-        public boolean areItemsTheSame(@NonNull DeliveryAddress oldItem, @NonNull DeliveryAddress newItem) {
-            return oldItem.getId().equals(newItem.getId());
-        }
 
-        @Override
-        public boolean areContentsTheSame(@NonNull DeliveryAddress oldItem, @NonNull DeliveryAddress newItem) {
-            return oldItem.getId().equals(newItem.getId());
-        }
-    };
+
 
     public Integer getId() {
         return id;

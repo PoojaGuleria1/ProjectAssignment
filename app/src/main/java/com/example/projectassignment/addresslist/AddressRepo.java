@@ -27,7 +27,6 @@ public class AddressRepo {
 
     private MutableLiveData<List<DeliveryAddress>> deliveryAddressMutableLiveData;
 
-    public static AppComponent mComponent;
     @Inject
     public RemoteServices mRemoteServices;
 
@@ -42,8 +41,8 @@ public class AddressRepo {
 
     public MutableLiveData<List<DeliveryAddress>> getAddressList() {
         deliveryAddressMutableLiveData = new MutableLiveData<>();
-        List<DeliveryAddress> movies = addressDao.getAllAddresses();
-        deliveryAddressMutableLiveData.setValue(movies);
+        //List<DeliveryAddress> movies = addressDao.getAllAddresses();
+        //deliveryAddressMutableLiveData.setValue(movies);
         Call<List<DeliveryAddress>> call = mRemoteServices.getDeliveryAddress();
         call.enqueue(new Callback<List<DeliveryAddress>>() {
             @Override

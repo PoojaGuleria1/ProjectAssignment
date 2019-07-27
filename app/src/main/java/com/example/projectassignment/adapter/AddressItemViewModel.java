@@ -11,9 +11,14 @@ import com.example.projectassignment.data.models.DeliveryAddress;
 public class AddressItemViewModel extends ViewModel {
 
     private DeliveryAddress deliveryAddress;
+    private String description;
 
     public void setDataModel(DeliveryAddress deliveryAddress) {
         this.deliveryAddress = deliveryAddress;
+    }
+
+    public void setDescription(){
+        description = deliveryAddress.getDescription();
     }
 
 }

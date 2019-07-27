@@ -20,7 +20,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class AddressViewModel extends ViewModel {
+public class AddressViewModel extends AndroidViewModel {
 
     @Inject
     AddressUsecase addressUsecase;
@@ -29,28 +29,28 @@ public class AddressViewModel extends ViewModel {
     public MutableLiveData<Boolean> addressDataChange = new MutableLiveData<>();
 
 
-    public AddressViewModel() {
+    public AddressViewModel(Application application) {
+        super(application);
+        ((App) getApplication()).getAppComponent().inject(this);
         deliveryAddressList = new ArrayList<>();
     }
 
 
     /**
      * Method to get movies list from repository via use case (local or remote)
-     * @param  : context of the calling activity or fragment, required to register observe callback
+     *
+     * @param : context of the calling activity or fragment, required to register observe callback
      */
-    public void getAddressList() {
+    public void getAddressList(Context context) {
         //calling desire use case method to invoke repository
         MutableLiveData<List<DeliveryAddress>> addressListMutableLiveData = addressUsecase.getAddressList();
-        addressListMutableLiveData.observe((LifecycleOwner) this, new Observer<List<DeliveryAddress>>() {
+        addressListMutableLiveData.observe((LifecycleOwner) context, new Observer<List<DeliveryAddress>>() {
             @Override
             public void onChanged(@Nullable List<DeliveryAddress> addresses) {
                 addressDataChange.setValue(true);
                 if (null != addresses && !addresses.isEmpty()) {
-                    if (null != deliveryAddressList)
-                        deliveryAddressList.clear();
-                    if (deliveryAddressList != null) {
-                        deliveryAddressList.addAll(addresses);
-                    }
+                    deliveryAddressList.addAll(addresses);
+
                 }
             }
         });

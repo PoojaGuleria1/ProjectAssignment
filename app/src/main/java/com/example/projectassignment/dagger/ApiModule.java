@@ -22,6 +22,6 @@ public class ApiModule {
     @Provides
     @Singleton
     public RemoteServices remoteServices() {
-        return RetrofitClient.getClient().create(RemoteServices.class);
+        return RetrofitClient.getInstance().getApi();
     }
 }

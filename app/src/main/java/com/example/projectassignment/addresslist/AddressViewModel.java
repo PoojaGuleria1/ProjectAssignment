@@ -20,6 +20,9 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+/**
+ *
+ */
 public class AddressViewModel extends AndroidViewModel {
 
     @Inject
@@ -37,9 +40,9 @@ public class AddressViewModel extends AndroidViewModel {
 
 
     /**
-     * Method to get movies list from repository via use case (local or remote)
+     * Method to get address list from repository via use case (local or remote)
      *
-     * @param : context of the calling activity or fragment, required to register observe callback
+     * @param : context of the calling activity , required to register observe callback
      */
     public void getAddressList(Context context) {
         //calling desire use case method to invoke repository
@@ -56,7 +59,7 @@ public class AddressViewModel extends AndroidViewModel {
         });
     }
 
-    //getter method for movies list
+    //getter method for address list
     public List<DeliveryAddress> getDeliveryAddressList() {
         return deliveryAddressList;
     }

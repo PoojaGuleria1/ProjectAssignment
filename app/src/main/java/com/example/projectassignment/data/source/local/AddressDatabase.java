@@ -18,7 +18,7 @@ public abstract class AddressDatabase extends RoomDatabase {
         synchronized (lock) {
             if (null == INSTANCE) {
                 INSTANCE = Room.databaseBuilder(context.getApplicationContext(), AddressDatabase
-                        .class, "movie.db").allowMainThreadQueries().fallbackToDestructiveMigration().build();
+                        .class, "address.db").allowMainThreadQueries().fallbackToDestructiveMigration().build();
             }
             return INSTANCE;
         }

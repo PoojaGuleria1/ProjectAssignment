@@ -2,6 +2,7 @@ package com.example.projectassignment.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -35,23 +36,25 @@ public class AddressListAdapter extends RecyclerView.Adapter<AddressListAdapter.
     public AddressListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         ItemRowLayoutBinding itemRowLayoutBinding = DataBindingUtil.inflate
                 (LayoutInflater.from(parent.getContext()), R.layout.item_row_layout, parent, false);
-
         return new AddressListViewHolder(itemRowLayoutBinding);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull AddressListViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull AddressListViewHolder holder, final int position) {
         DeliveryAddress deliveryAddress = deliveryAddressList.get(position);
-       //AddressItemViewModel dataItemViewModel = new AddressItemViewModel();
-        //dataItemViewModel.setDataModel(deliveryAddress);
-      //  holder.setViewModel(dataItemViewModel);
-     //   holder.getBinding().executePendingBindings();
-
         holder.binding.addressText.setText(deliveryAddress.getDescription() + "at" +
                 deliveryAddress.getLocation().getAddress());
         Glide.with(context)
                 .load(deliveryAddress.getImageUrl())
                 .into(holder.binding.image);
+        holder.binding.itemLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                itemClickListener.onItemClick(position);
+            }
+        });
+
+
     }
 
     @Override

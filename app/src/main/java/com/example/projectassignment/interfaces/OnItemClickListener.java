@@ -2,5 +2,5 @@ package com.example.projectassignment.interfaces;
 
 public interface OnItemClickListener {
 
-    void onItemClick();
+    void onItemClick(int position);
 }

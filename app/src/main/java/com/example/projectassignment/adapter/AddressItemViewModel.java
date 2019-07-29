@@ -8,6 +8,9 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.projectassignment.data.models.DeliveryAddress;
 
+/**
+ * ViewModel class for
+ */
 public class AddressItemViewModel extends ViewModel {
 
     private DeliveryAddress deliveryAddress;

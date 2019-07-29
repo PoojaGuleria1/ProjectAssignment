@@ -43,7 +43,7 @@ public class AddressRepo {
         deliveryAddressMutableLiveData = new MutableLiveData<>();
         //List<DeliveryAddress> movies = addressDao.getAllAddresses();
         //deliveryAddressMutableLiveData.setValue(movies);
-        Call<List<DeliveryAddress>> call = mRemoteServices.getDeliveryAddress();
+        Call<List<DeliveryAddress>> call = mRemoteServices.getDeliveryAddress(1,4);
         call.enqueue(new Callback<List<DeliveryAddress>>() {
             @Override
             public void onResponse(Call<List<DeliveryAddress>> call, Response<List<DeliveryAddress>> response) {

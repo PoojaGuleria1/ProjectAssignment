@@ -11,8 +11,8 @@ import com.example.projectassignment.data.models.DeliveryAddress;
 
 public class ItemViewModel extends ViewModel {
 
-    public LiveData<PagedList<DeliveryAddress>> itemPagedList = new MutableLiveData<>();
-    public LiveData<PageKeyedDataSource<Integer,DeliveryAddress>> itemPageDataSource = new MutableLiveData<>();
+    LiveData<PagedList<DeliveryAddress>> itemPagedList;
+    LiveData<PageKeyedDataSource<Integer,DeliveryAddress>> itemPageDataSource;
 
     public ItemViewModel(){
         ItemDataSourceFactory itemDataSourceFactory = new ItemDataSourceFactory();

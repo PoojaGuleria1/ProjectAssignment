@@ -18,6 +18,18 @@ import com.example.projectassignment.databinding.ItemRowLayoutBinding;
 
 public class ItemAdapter extends PagedListAdapter<DeliveryAddress, ItemAdapter.ViewHolder> {
 
+    private static DiffUtil.ItemCallback<DeliveryAddress> DIFF_UTIL = new DiffUtil.ItemCallback<DeliveryAddress>() {
+        @Override
+        public boolean areItemsTheSame(@NonNull DeliveryAddress oldItem, @NonNull DeliveryAddress newItem) {
+            return oldItem.getId() == newItem.getId();
+        }
+
+        @Override
+        public boolean areContentsTheSame(@NonNull DeliveryAddress oldItem, @NonNull DeliveryAddress newItem) {
+            return oldItem.equals(newItem);
+        }
+    };
+
     private Context context;
 
     protected ItemAdapter(Context context) {
@@ -45,18 +57,7 @@ public class ItemAdapter extends PagedListAdapter<DeliveryAddress, ItemAdapter.V
         }
     }
 
-    private static DiffUtil.ItemCallback<DeliveryAddress> DIFF_UTIL = new DiffUtil.ItemCallback<DeliveryAddress>() {
-        @Override
-        public boolean areItemsTheSame(@NonNull DeliveryAddress oldItem, @NonNull DeliveryAddress newItem) {
-            return oldItem.getId() == newItem.getId();
-        }
 
-        @SuppressLint("DiffUtilEquals")
-        @Override
-        public boolean areContentsTheSame(@NonNull DeliveryAddress oldItem, @NonNull DeliveryAddress newItem) {
-            return oldItem.equals(newItem);
-        }
-    };
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         ItemRowLayoutBinding itemRowLayoutBinding;

@@ -12,7 +12,6 @@ public class ItemDataSourceFactory extends DataSource.Factory {
     @Override
     public DataSource create() {
         ItemDataSource itemDataSource = new ItemDataSource();
-
         addressLiveDataSource.postValue(itemDataSource);
         return itemDataSource;
     }

@@ -1,5 +1,6 @@
 package com.example.projectassignment.addressDetail;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
@@ -16,8 +17,10 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.projectassignment.R;
 import com.example.projectassignment.data.models.DeliveryAddress;
 import com.example.projectassignment.databinding.ActivityAddressDetailBinding;
@@ -51,11 +54,14 @@ public class AddressDetailActivity extends AppCompatActivity {
         setViewBindings();
 
         Intent intent = getIntent();
-        if(null != intent && null != intent.getSerializableExtra("deliveryAddress")) {
+        if (null != intent && null != intent.getSerializableExtra("deliveryAddress")) {
             deliveryAddress = (DeliveryAddress) intent.getSerializableExtra("deliveryAddress");
         }
-        activityAddressDetailBinding.address.setText(deliveryAddress.getDescription()+"at"+
+        activityAddressDetailBinding.address.setText(deliveryAddress.getDescription() + " at " + "\n"+
                 deliveryAddress.getLocation().getAddress());
+        Glide.with(this)
+                .load(deliveryAddress.getImageUrl())
+                .into(activityAddressDetailBinding.image);
 
         initilizeMap();
         drawMarker();
@@ -68,6 +74,16 @@ public class AddressDetailActivity extends AppCompatActivity {
         activityAddressDetailBinding.setModel(addressDetailViewModel);
         activityAddressDetailBinding.setLifecycleOwner(this);
         activityAddressDetailBinding.executePendingBindings();
+
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Delivery Details");
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        onBackPressed();
+        return true;
     }
 
     private void drawMarker() {

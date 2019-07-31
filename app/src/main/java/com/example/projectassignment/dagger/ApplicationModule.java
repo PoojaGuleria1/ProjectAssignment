@@ -3,6 +3,7 @@ package com.example.projectassignment.dagger;
 import android.content.Context;
 
 import com.example.projectassignment.App;
+import com.example.projectassignment.addresslist.AddressDataSource;
 import com.example.projectassignment.addresslist.AddressRepo;
 import com.example.projectassignment.data.source.local.AddressDatabase;
 
@@ -28,11 +29,13 @@ public class ApplicationModule {
     }
 
 
+
+
     @Provides
     @Singleton
-    public AddressRepo addressRepo() {
-        AddressDatabase movieDatabase = AddressDatabase.getInstance(mApp);
-        return new AddressRepo(mApp, movieDatabase);
+    public AddressDataSource addressDataSource() {
+        AddressDatabase addressDatabase = AddressDatabase.getInstance(mApp);
+        return new AddressDataSource(mApp, addressDatabase);
 
     }
 

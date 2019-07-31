@@ -22,25 +22,36 @@ import retrofit2.Response;
 public class AddressDataSource extends PageKeyedDataSource<Integer, DeliveryAddress> {
 
 
-    public static final int PAGE_SIZE = 7;
+    public static final int PAGE_SIZE = 20;
     public static final int FIRST_PAGE = 1;
+    private AddressDao addressDao;
+    private Context context;
+
+
+    public AddressDataSource(Context context, AddressDatabase addressDatabase) {
+        App.getApp().getAppComponent().inject(this);
+        addressDao = addressDatabase.addressDao();
+        this.context = context;
+
+    }
 
     @Override
     public void loadInitial(@NonNull LoadInitialParams<Integer> params,
                             @NonNull final LoadInitialCallback<Integer, DeliveryAddress> callback) {
         RetrofitClient.getInstance().
-                getApi().getDeliveryAddress(FIRST_PAGE,PAGE_SIZE).enqueue(new Callback<List<DeliveryAddress>>() {
+                getApi().getDeliveryAddress(FIRST_PAGE, PAGE_SIZE).enqueue(new Callback<List<DeliveryAddress>>() {
             @Override
             public void onResponse(Call<List<DeliveryAddress>> call, Response<List<DeliveryAddress>> response) {
                 if (null != response.body()) {
-                     callback.onResult(response.body(), null, FIRST_PAGE + 1);
+                    callback.onResult(response.body(), null, FIRST_PAGE + 1);
+                    insertAddressIntoDb(response.body());
                 }
 
             }
 
             @Override
             public void onFailure(Call<List<DeliveryAddress>> call, Throwable t) {
-                Log.d("error","njfdsjds");
+                Log.d("error", "njfdsjds");
             }
 
 
@@ -51,7 +62,7 @@ public class AddressDataSource extends PageKeyedDataSource<Integer, DeliveryAddr
     @Override
     public void loadBefore(@NonNull final LoadParams<Integer> params, @NonNull final LoadCallback<Integer, DeliveryAddress> callback) {
         RetrofitClient.getInstance().
-                getApi().getDeliveryAddress(params.key,PAGE_SIZE).enqueue(new Callback<List<DeliveryAddress>>() {
+                getApi().getDeliveryAddress(params.key, PAGE_SIZE).enqueue(new Callback<List<DeliveryAddress>>() {
             @Override
             public void onResponse(Call<List<DeliveryAddress>> call, Response<List<DeliveryAddress>> response) {
 
@@ -71,23 +82,39 @@ public class AddressDataSource extends PageKeyedDataSource<Integer, DeliveryAddr
     @Override
     public void loadAfter(@NonNull final LoadParams<Integer> params, @NonNull final LoadCallback<Integer, DeliveryAddress> callback) {
         RetrofitClient.getInstance().
-                getApi().getDeliveryAddress(params.key,PAGE_SIZE).enqueue(new Callback<List<DeliveryAddress>>() {
+                getApi().getDeliveryAddress(params.key, PAGE_SIZE).enqueue(new Callback<List<DeliveryAddress>>() {
             @Override
             public void onResponse(Call<List<DeliveryAddress>> call, Response<List<DeliveryAddress>> response) {
                 Integer key;
-                if(response.code() == 200 && response.body() != null){
+                if (params.key < PAGE_SIZE) {
                     key = params.key + 1;
-                }else{
+                } else {
                     key = null;
                 }
 
-                callback.onResult(response.body(),key);
+                callback.onResult(response.body(), key);
 
             }
+
             @Override
             public void onFailure(Call<List<DeliveryAddress>> call, Throwable t) {
 
             }
         });
+    }
+
+    /**
+     * Method to fetch movie details from DB as per provided movie name
+     *
+     * @param description : name of the movie whose details needs to be fetched
+     * @return : Movie object containing details of the movie
+     */
+    public DeliveryAddress fetchAddressDetails(String description) {
+        return addressDao.getAddressListData(description);
+    }
+
+    private void insertAddressIntoDb(List<DeliveryAddress> addressList) {
+        for (DeliveryAddress address : addressList)
+            addressDao.insertAddressData(address);
     }
 }

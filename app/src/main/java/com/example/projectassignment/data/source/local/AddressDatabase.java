@@ -24,5 +24,5 @@ public abstract class AddressDatabase extends RoomDatabase {
         }
     }
 
-    public abstract AddressDao moviesDao();
+    public abstract AddressDao addressDao();
 }

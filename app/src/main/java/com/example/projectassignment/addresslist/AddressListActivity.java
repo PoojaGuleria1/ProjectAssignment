@@ -1,5 +1,6 @@
 package com.example.projectassignment.addresslist;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.Observer;
@@ -10,6 +11,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import com.example.projectassignment.R;
 import com.example.projectassignment.addressDetail.AddressDetailActivity;
@@ -52,11 +54,10 @@ public class AddressListActivity extends AppCompatActivity implements OnItemClic
             public void onChanged(final PagedList<DeliveryAddress> deliveryAddresses) {
                 deliveryAddressList = deliveryAddresses;
                 addressListAdapter.submitList(deliveryAddresses);
-                if (activityItemBinding.addressSwipetorefresh.isRefreshing())
-                    activityItemBinding.addressSwipetorefresh.setRefreshing(false);
+                if (activityItemBinding.addressSwipetorefresh.isRefreshing() && null != deliveryAddresses)
+                   activityItemBinding.addressSwipetorefresh.setRefreshing(false);
 
-
-            }
+        }
         });
         activityItemBinding.dataRecyclerView.setAdapter(addressListAdapter);
 
@@ -67,6 +68,8 @@ public class AddressListActivity extends AppCompatActivity implements OnItemClic
         itemViewModel = ViewModelProviders.of(this).get(AdddressViewModel.class);
         activityItemBinding.setLifecycleOwner(this);
         activityItemBinding.executePendingBindings();
+
+       // activityItemBinding.header.backButton.setVisibility(View.GONE);
     }
 
     @Override

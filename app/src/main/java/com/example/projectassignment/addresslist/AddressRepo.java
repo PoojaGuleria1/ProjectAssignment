@@ -35,7 +35,7 @@ public class AddressRepo {
 
     public AddressRepo(Context context, AddressDatabase addressDatabase) {
         App.getApp().getAppComponent().inject(this);
-        addressDao = addressDatabase.moviesDao();
+        //addressDao = addressDatabase.moviesDao();
         this.context = context;
     }
 

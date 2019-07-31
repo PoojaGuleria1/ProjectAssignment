@@ -53,7 +53,7 @@ public class AddressListAdapter extends PagedListAdapter<DeliveryAddress, Addres
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         DeliveryAddress deliveryAddress = getItem(position);
         if (null != deliveryAddress) {
-            holder.itemRowLayoutBinding.addressText.setText(deliveryAddress.getDescription() + " at " +"\n"+
+            holder.itemRowLayoutBinding.addressText.setText(deliveryAddress.getDescription() + " at " + "\n" +
                     deliveryAddress.getLocation().getAddress());
             Glide.with(context)
                     .load(deliveryAddress.getImageUrl())
@@ -67,7 +67,6 @@ public class AddressListAdapter extends PagedListAdapter<DeliveryAddress, Addres
             }
         });
     }
-
 
 
     public class ViewHolder extends RecyclerView.ViewHolder {

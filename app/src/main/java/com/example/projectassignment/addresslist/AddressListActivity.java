@@ -40,6 +40,8 @@ public class AddressListActivity extends AppCompatActivity implements OnItemClic
             @Override
             public void onRefresh() {
                 itemViewModel.refresh();
+                if (activityItemBinding.addressSwipetorefresh.isRefreshing())
+                    activityItemBinding.addressSwipetorefresh.setRefreshing(false);
             }
         });
 
@@ -54,8 +56,11 @@ public class AddressListActivity extends AppCompatActivity implements OnItemClic
             public void onChanged(final PagedList<DeliveryAddress> deliveryAddresses) {
                 deliveryAddressList = deliveryAddresses;
                 addressListAdapter.submitList(deliveryAddresses);
-                if (activityItemBinding.addressSwipetorefresh.isRefreshing() && 0 != deliveryAddresses.size())
-                   activityItemBinding.addressSwipetorefresh.setRefreshing(false);
+                if (activityItemBinding.addressSwipetorefresh.isRefreshing() && 0 != deliveryAddresses.size()) {
+                    activityItemBinding.addressSwipetorefresh.setRefreshing(false);
+                }else{
+                    activityItemBinding.addressSwipetorefresh.setRefreshing(true);
+                }
 
         }
         });
@@ -69,7 +74,7 @@ public class AddressListActivity extends AppCompatActivity implements OnItemClic
         activityItemBinding.setLifecycleOwner(this);
         activityItemBinding.executePendingBindings();
 
-       // activityItemBinding.header.backButton.setVisibility(View.GONE);
+
     }
 
     @Override

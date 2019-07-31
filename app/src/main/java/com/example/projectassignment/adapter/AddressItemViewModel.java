@@ -9,7 +9,7 @@ import androidx.lifecycle.ViewModel;
 import com.example.projectassignment.data.models.DeliveryAddress;
 
 /**
- * ViewModel class for
+ * ViewModel class for AddressList Adapter
  */
 public class AddressItemViewModel extends ViewModel {
 

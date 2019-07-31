@@ -67,6 +67,7 @@ public class AddressDetailActivity extends AppCompatActivity {
         drawMarker();
     }
 
+    //
     private void setViewBindings() {
         activityAddressDetailBinding = DataBindingUtil.setContentView(this,
                 R.layout.activity_address_detail);

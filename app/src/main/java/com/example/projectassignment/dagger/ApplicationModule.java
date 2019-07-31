@@ -3,9 +3,6 @@ package com.example.projectassignment.dagger;
 import android.content.Context;
 
 import com.example.projectassignment.App;
-import com.example.projectassignment.addresslist.AddressDataSource;
-import com.example.projectassignment.addresslist.AddressRepo;
-import com.example.projectassignment.data.source.local.AddressDatabase;
 
 import javax.inject.Singleton;
 

@@ -54,7 +54,7 @@ public class AddressListActivity extends AppCompatActivity implements OnItemClic
             public void onChanged(final PagedList<DeliveryAddress> deliveryAddresses) {
                 deliveryAddressList = deliveryAddresses;
                 addressListAdapter.submitList(deliveryAddresses);
-                if (activityItemBinding.addressSwipetorefresh.isRefreshing() && null != deliveryAddresses)
+                if (activityItemBinding.addressSwipetorefresh.isRefreshing() && 0 != deliveryAddresses.size())
                    activityItemBinding.addressSwipetorefresh.setRefreshing(false);
 
         }

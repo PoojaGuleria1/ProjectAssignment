@@ -8,8 +8,8 @@ import android.os.Bundle;
 import android.os.Handler;
 
 import com.example.projectassignment.R;
-import com.example.projectassignment.addresslist.AddressActivity;
 import com.example.projectassignment.databinding.ActivitySplashBinding;
+import com.example.projectassignment.addresslist.AddressListActivity;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -35,7 +35,7 @@ public class SplashActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                startActivity(new Intent(SplashActivity.this, AddressActivity.class));
+                startActivity(new Intent(SplashActivity.this, AddressListActivity.class));
                 finish();
             }
         }, 3000);

@@ -7,9 +7,9 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
-import androidx.databinding.ViewDataBinding;
+import androidx.paging.PagedListAdapter;
+import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
-
 
 import com.bumptech.glide.Glide;
 import com.example.projectassignment.R;
@@ -17,63 +17,65 @@ import com.example.projectassignment.data.models.DeliveryAddress;
 import com.example.projectassignment.databinding.ItemRowLayoutBinding;
 import com.example.projectassignment.interfaces.OnItemClickListener;
 
-import java.util.List;
-
-public class AddressListAdapter extends RecyclerView.Adapter<AddressListAdapter.AddressListViewHolder> {
+public class AddressListAdapter extends PagedListAdapter<DeliveryAddress, AddressListAdapter.ViewHolder> {
 
     private OnItemClickListener itemClickListener;
-    private List<DeliveryAddress> deliveryAddressList;
+
+    private static DiffUtil.ItemCallback<DeliveryAddress> DIFF_UTIL = new DiffUtil.ItemCallback<DeliveryAddress>() {
+        @Override
+        public boolean areItemsTheSame(@NonNull DeliveryAddress oldItem, @NonNull DeliveryAddress newItem) {
+            return oldItem.getId() == newItem.getId();
+        }
+
+        @Override
+        public boolean areContentsTheSame(@NonNull DeliveryAddress oldItem, @NonNull DeliveryAddress newItem) {
+            return oldItem.equals(newItem);
+        }
+    };
+
     private Context context;
 
-    public AddressListAdapter(Context context, List<DeliveryAddress> deliveryAddressList, OnItemClickListener itemClickListener) {
+    public AddressListAdapter(Context context, OnItemClickListener itemClickListener) {
+        super(DIFF_UTIL);
         this.context = context;
         this.itemClickListener = itemClickListener;
-        this.deliveryAddressList = deliveryAddressList;
     }
 
     @NonNull
     @Override
-    public AddressListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         ItemRowLayoutBinding itemRowLayoutBinding = DataBindingUtil.inflate
                 (LayoutInflater.from(parent.getContext()), R.layout.item_row_layout, parent, false);
-        return new AddressListViewHolder(itemRowLayoutBinding);
+        return new ViewHolder(itemRowLayoutBinding);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull AddressListViewHolder holder, final int position) {
-        DeliveryAddress deliveryAddress = deliveryAddressList.get(position);
-        holder.binding.addressText.setText(deliveryAddress.getDescription() + "at" +
-                deliveryAddress.getLocation().getAddress());
-        Glide.with(context)
-                .load(deliveryAddress.getImageUrl())
-                .into(holder.binding.image);
-        holder.binding.itemLayout.setOnClickListener(new View.OnClickListener() {
+    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
+        DeliveryAddress deliveryAddress = getItem(position);
+        if (null != deliveryAddress) {
+            holder.itemRowLayoutBinding.addressText.setText(deliveryAddress.getDescription() + "at" +
+                    deliveryAddress.getLocation().getAddress());
+            Glide.with(context)
+                    .load(deliveryAddress.getImageUrl())
+                    .into(holder.itemRowLayoutBinding.image);
+        }
+
+        holder.itemRowLayoutBinding.itemLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 itemClickListener.onItemClick(position);
             }
         });
-
-
     }
 
-    @Override
-    public int getItemCount() {
-        return deliveryAddressList.size();
-    }
 
-    //Holder class for Recyler View Adapter
-    static class AddressListViewHolder extends RecyclerView.ViewHolder {
-        private ItemRowLayoutBinding binding;
 
-        AddressListViewHolder(ItemRowLayoutBinding binding) {
-            super(binding.getRoot());
-            this.binding = binding;
+    public class ViewHolder extends RecyclerView.ViewHolder {
+        ItemRowLayoutBinding itemRowLayoutBinding;
 
+        public ViewHolder(ItemRowLayoutBinding itemView) {
+            super(itemView.getRoot());
+            this.itemRowLayoutBinding = itemView;
         }
-
-
-
-
     }
 }

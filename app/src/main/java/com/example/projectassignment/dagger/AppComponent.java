@@ -5,8 +5,7 @@ package com.example.projectassignment.dagger;
 import com.example.projectassignment.App;
 import com.example.projectassignment.adapter.AddressItemViewModel;
 import com.example.projectassignment.addresslist.AddressRepo;
-import com.example.projectassignment.addresslist.AddressUsecase;
-import com.example.projectassignment.addresslist.AddressViewModel;
+import com.example.projectassignment.addresslist.AddressDataSource;
 
 import javax.inject.Singleton;
 
@@ -19,8 +18,10 @@ public interface AppComponent {
 
     void inject(App assignmentApplication);
     void inject(AddressItemViewModel addressItemViewModel);
-    void inject(AddressViewModel addressViewModel);
+   // void inject(AddressViewModel addressViewModel);
     void inject(AddressRepo addressRepo);
-    void inject(AddressUsecase addressUsecase);
+    //void inject(AddressUsecase addressUsecase);
+   // void inject(ItemDataSourceFactory itemDataSourceFactory);
+    void inject(AddressDataSource addressDataSource);
 
 }

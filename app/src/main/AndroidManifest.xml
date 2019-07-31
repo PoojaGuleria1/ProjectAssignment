@@ -21,22 +21,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".paging.ItemActivity">
+        <activity android:name=".addresslist.AddressListActivity">
+
+        </activity>
+        <activity android:name=".addressDetail.AddressDetailActivity" />
+        <activity android:name=".splash.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".addressDetail.AddressDetailActivity" />
-        <activity android:name=".splash.SplashActivity">
-           <!-- <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
-        </activity>
-        <activity android:name=".addresslist.AddressActivity" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

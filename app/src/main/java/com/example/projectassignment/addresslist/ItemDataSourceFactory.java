@@ -11,13 +11,12 @@ import javax.inject.Inject;
 
 public class ItemDataSourceFactory extends DataSource.Factory {
 
-    @Inject
-    AddressDataSource addressDataSource;
 
     public MutableLiveData<PageKeyedDataSource<Integer, DeliveryAddress>> addressLiveDataSource = new MutableLiveData<>();
 
     @Override
     public DataSource create() {
+        AddressDataSource addressDataSource = new AddressDataSource();
         addressLiveDataSource.postValue(addressDataSource);
         return addressDataSource;
     }

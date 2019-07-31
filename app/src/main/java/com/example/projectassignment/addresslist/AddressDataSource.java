@@ -25,13 +25,12 @@ public class AddressDataSource extends PageKeyedDataSource<Integer, DeliveryAddr
     public static final int PAGE_SIZE = 7;
     public static final int FIRST_PAGE = 1;
     private AddressDao addressDao;
-    private Context context;
 
 
-    public AddressDataSource(Context context, AddressDatabase addressDatabase) {
-        App.getApp().getAppComponent().inject(this);
+    public AddressDataSource() {
+        AddressDatabase addressDatabase = AddressDatabase.getInstance(App.getApp());
         addressDao = addressDatabase.addressDao();
-        this.context = context;
+
 
     }
 

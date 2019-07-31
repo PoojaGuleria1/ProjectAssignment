@@ -31,13 +31,5 @@ public class ApplicationModule {
 
 
 
-    @Provides
-    @Singleton
-    public AddressDataSource addressDataSource() {
-        AddressDatabase addressDatabase = AddressDatabase.getInstance(mApp);
-        return new AddressDataSource(mApp, addressDatabase);
-
-    }
-
 
 }

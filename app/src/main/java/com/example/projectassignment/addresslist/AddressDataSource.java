@@ -22,7 +22,7 @@ import retrofit2.Response;
 public class AddressDataSource extends PageKeyedDataSource<Integer, DeliveryAddress> {
 
 
-    public static final int PAGE_SIZE = 20;
+    public static final int PAGE_SIZE = 7;
     public static final int FIRST_PAGE = 1;
     private AddressDao addressDao;
     private Context context;

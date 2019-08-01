@@ -47,6 +47,7 @@ public class AddressDetailActivity extends AppCompatActivity {
     private GoogleMap googleMap;
     private DeliveryAddress deliveryAddress;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

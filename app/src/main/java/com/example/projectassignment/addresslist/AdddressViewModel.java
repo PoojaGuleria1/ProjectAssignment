@@ -17,16 +17,16 @@ public class AdddressViewModel extends ViewModel {
     public AdddressViewModel() {
 
         itemDataSourceFactory = new ItemDataSourceFactory();
-
         itemPageDataSource = itemDataSourceFactory.getAddressLiveDataSource();
+    }
 
+    public void onScreenLoaded() {
         PagedList.Config config =
                 (new PagedList.Config.Builder())
                         .setEnablePlaceholders(false)
                         .setPageSize(AddressDataSource.PAGE_SIZE)
                         .build();
         itemPagedList = (new LivePagedListBuilder(itemDataSourceFactory, config)).build();
-
     }
 
     public void refresh() {

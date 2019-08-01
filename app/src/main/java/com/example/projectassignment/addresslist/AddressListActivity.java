@@ -58,8 +58,6 @@ public class AddressListActivity extends AppCompatActivity implements OnItemClic
                 addressListAdapter.submitList(deliveryAddresses);
                 if (activityItemBinding.addressSwipetorefresh.isRefreshing() && 0 != deliveryAddresses.size()) {
                     activityItemBinding.addressSwipetorefresh.setRefreshing(false);
-                }else{
-                    activityItemBinding.addressSwipetorefresh.setRefreshing(true);
                 }
 
         }
@@ -71,6 +69,7 @@ public class AddressListActivity extends AppCompatActivity implements OnItemClic
     private void setViewBindings() {
         activityItemBinding = DataBindingUtil.setContentView(this, R.layout.activity_item);
         itemViewModel = ViewModelProviders.of(this).get(AdddressViewModel.class);
+        itemViewModel.onScreenLoaded();
         activityItemBinding.setLifecycleOwner(this);
         activityItemBinding.executePendingBindings();
 
